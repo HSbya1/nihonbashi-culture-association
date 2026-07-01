@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 425.2 425.2">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c9171e;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #000;
+        font-family: YuMincho-Demibold, 'Yu Mincho';
+        font-size: 101.84px;
+        font-weight: 300;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M266.55,201.87c0,29.65-24.03,53.67-53.68,53.67s-53.68-24.03-53.68-53.67,24.03-53.68,53.68-53.68,53.68,24.03,53.68,53.68Z"/>
+  <g>
+    <text class="cls-2" transform="translate(49.99 126.25)"><tspan x="0" y="0">日</tspan></text>
+    <text class="cls-2" transform="translate(161.95 126.25)"><tspan x="0" y="0">本</tspan></text>
+    <text class="cls-2" transform="translate(273.35 126.25)"><tspan x="0" y="0">橋</tspan></text>
+    <text class="cls-2" transform="translate(49.99 238.15)"><tspan x="0" y="0">文</tspan></text>
+    <text class="cls-2" transform="translate(273.35 238.15)"><tspan x="0" y="0">化</tspan></text>
+    <text class="cls-2" transform="translate(49.99 353.99)"><tspan x="0" y="0">交</tspan></text>
+    <text class="cls-2" transform="translate(161.95 353.99)"><tspan x="0" y="0">流</tspan></text>
+    <text class="cls-2" transform="translate(273.35 353.99)"><tspan x="0" y="0">会</tspan></text>
+  </g>
+</svg>
