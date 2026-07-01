@@ -206,5 +206,36 @@
       Visual identity designed by ATTRACTA
     </p>
   </footer>
+
+  <script>
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector(".site-header");
+  const threshold = 12;
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY < 40) {
+      header.classList.remove("is-hidden");
+      header.classList.add("is-visible");
+      lastScrollY = currentScrollY;
+      return;
+    }
+
+    if (Math.abs(currentScrollY - lastScrollY) < threshold) {
+      return;
+    }
+
+    if (currentScrollY > lastScrollY) {
+      header.classList.add("is-hidden");
+      header.classList.remove("is-visible");
+    } else {
+      header.classList.remove("is-hidden");
+      header.classList.add("is-visible");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+</script>
 </body>
 </html>
