@@ -735,3 +735,18 @@ img {
     letter-spacing: 0.1em;
   }
 }
+
+/* Header hide / show on scroll */
+
+.site-header {
+  transform: translateY(0);
+  transition: transform 0.32s ease, background 0.32s ease, border-color 0.32s ease;
+}
+
+.site-header.is-hidden {
+  transform: translateY(-110%);
+}
+
+.site-header.is-visible {
+  transform: translateY(0);
+}
