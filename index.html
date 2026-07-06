@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- BUILD: 20260707-chapter-v8 | hero mark exit + refined cards + red news hover -->
+  <!-- BUILD: 20260707-chapter-v9 | oversized hero mark + fixed header + NCA link -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -205,9 +205,9 @@
     .hero-symbol-stage {
       position: absolute;
       z-index: 4;
-      right: clamp(54px, 9vw, 150px);
+      right: clamp(-180px, -8vw, -70px);
       top: 50%;
-      width: clamp(120px, 16vw, 240px);
+      width: clamp(420px, 46vw, 760px);
       transform: translate3d(0, -50%, 0);
       transition: transform 1.05s cubic-bezier(.76, 0, .24, 1), opacity .25s ease .80s;
       will-change: transform, opacity;
@@ -223,6 +223,13 @@
     .hero.is-symbol-exiting .hero-symbol-stage {
       transform: translate3d(calc(100vw + 120%), -50%, 0);
       opacity: 0;
+    }
+
+    /* v9 — Header stays fixed and visible. */
+    .site-header,
+    .site-header.is-hidden,
+    .site-header.is-visible {
+      transform: translateY(0) !important;
     }
 
     /* v8 — Keep the association name on one line. */
@@ -279,9 +286,9 @@
 
     @media (max-width: 980px) {
       .hero-symbol-stage {
-        right: 22px;
-        top: 61%;
-        width: clamp(82px, 24vw, 132px);
+        right: -34vw;
+        top: 62%;
+        width: clamp(330px, 108vw, 620px);
       }
 
       .about-title {
@@ -300,7 +307,7 @@
 
 </head>
 
-<body data-build="20260707-chapter-v8">
+<body data-build="20260707-chapter-v9">
   <header class="site-header">
     <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
       <img src="symbol-mark.svg" alt="" class="brand-mark" />
@@ -469,7 +476,7 @@
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
             <span class="news-tag red">お知らせ</span>
-            <p>ロゴマークおよびビジュアルアイデンティティを刷新しました。</p>
+            <p><a href="https://attracta.co.jp/projects/nca/" target="_blank" rel="noopener noreferrer">ロゴマークおよびビジュアルアイデンティティを刷新しました。</a></p>
             <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
 
@@ -519,29 +526,6 @@
     const siteNav = document.querySelector(".site-nav");
     const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    let lastScrollY = window.scrollY;
-    const threshold = 12;
-
-    window.addEventListener("scroll", () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY < 40) {
-        header.classList.remove("is-hidden");
-        lastScrollY = currentScrollY;
-        return;
-      }
-
-      if (Math.abs(currentScrollY - lastScrollY) < threshold) return;
-
-      if (currentScrollY > lastScrollY && !document.body.classList.contains("menu-open")) {
-        header.classList.add("is-hidden");
-      } else {
-        header.classList.remove("is-hidden");
-      }
-
-      lastScrollY = currentScrollY;
-    }, { passive: true });
-
     menuButton.addEventListener("click", () => {
       const isOpen = document.body.classList.toggle("menu-open");
       menuButton.setAttribute("aria-expanded", String(isOpen));
@@ -574,7 +558,7 @@
       revealElements.forEach((element) => element.classList.add("is-revealed"));
     }
 
-    console.info("NCX build 20260707-chapter-v8 loaded");
+    console.info("NCX build 20260707-chapter-v9 loaded");
 
     const sweepSections = document.querySelectorAll(".section-sweep");
     const heroSection = document.querySelector(".hero");
