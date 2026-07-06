@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- BUILD: 20260707-chapter-v9 | oversized hero mark + fixed header + NCA link -->
+  <!-- BUILD: 20260707-chapter-v10 | bilingual JA/EN toggle -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -303,11 +303,49 @@
         white-space: nowrap !important;
       }
     }
+    /* v10 — Language switching. Keep geometry stable across JA/EN. */
+    body.is-en .hero h1 {
+      letter-spacing: .015em;
+    }
+
+    body.is-en .about-name {
+      white-space: normal !important;
+    }
+
+    body.is-en .about-title {
+      min-width: 0;
+    }
+
+    body.is-en .about-copy p,
+    body.is-en .activities-lead,
+    body.is-en .activity-card p,
+    body.is-en .contact-copy p {
+      letter-spacing: .015em;
+      line-height: 1.72;
+    }
+
+    .lang {
+      min-width: 2.4em;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 980px) {
+      body.is-en .hero h1 {
+        font-size: clamp(32px, 8.3vw, 48px) !important;
+        white-space: normal;
+      }
+
+      body.is-en .about-title h2 {
+        font-size: clamp(27px, 7vw, 36px) !important;
+      }
+    }
+
   </style>
 
 </head>
 
-<body data-build="20260707-chapter-v9">
+<body data-build="20260707-chapter-v10">
   <header class="site-header">
     <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
       <img src="symbol-mark.svg" alt="" class="brand-mark" />
@@ -324,11 +362,11 @@
     </button>
 
     <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
-      <a href="#about"><span>活動について</span><small>ABOUT</small></a>
-      <a href="#activities"><span>活動内容</span><small>ACTIVITIES</small></a>
-      <a href="#news"><span>お知らせ</span><small>NEWS</small></a>
-      <a href="#contact"><span>お問い合わせ</span><small>CONTACT</small></a>
-      <a href="#" class="lang">EN</a>
+      <a href="#about"><span data-i18n="nav.about">活動について</span><small>ABOUT</small></a>
+      <a href="#activities"><span data-i18n="nav.activities">活動内容</span><small>ACTIVITIES</small></a>
+      <a href="#news"><span data-i18n="nav.news">お知らせ</span><small>NEWS</small></a>
+      <a href="#contact"><span data-i18n="nav.contact">お問い合わせ</span><small>CONTACT</small></a>
+      <a href="#" class="lang" role="button" aria-label="Switch language to English">EN</a>
     </nav>
   </header>
 
@@ -338,8 +376,8 @@
         <p class="eyebrow">Nihonbashi Culture-Exchange Association</p>
 
         <h1>
-          <span>文化を結び、</span><br />
-          <span>未来をひらく。</span>
+          <span data-i18n="hero.line1">文化を結び、</span><br />
+          <span data-i18n="hero.line2">未来をひらく。</span>
         </h1>
 
         <p class="hero-en">
@@ -348,7 +386,7 @@
           Opening futures.
         </p>
 
-        <a href="#about" class="text-link">私たちについて <span>→</span></a>
+        <a href="#about" class="text-link"><span data-i18n="hero.link">私たちについて</span> <span>→</span></a>
       </div>
 
       <div class="hero-symbol-stage" aria-hidden="true">
@@ -366,7 +404,7 @@
       <div class="section-content about-layout">
         <div class="about-title reveal">
           <p class="section-index">01 / ABOUT</p>
-          <h2><span class="about-name">日本橋文化交流会</span><br />について</h2>
+          <h2 data-i18n-html="about.title"><span class="about-name">日本橋文化交流会</span><br />について</h2>
           <div class="exchange-line" aria-hidden="true">
             <span></span>
             <i></i>
@@ -374,20 +412,20 @@
         </div>
 
         <div class="about-copy reveal">
-          <p>
+          <p data-i18n="about.p1">
             日本橋文化交流会は、中央区日本橋を拠点とする老舗企業を中心に、
             年齢や職業、経歴の異なる会員が集い、勉強会や交流を通して
             多様な文化を学び合う会です。
           </p>
 
-          <p>
+          <p data-i18n="about.p2">
             日本橋は、江戸以来、商い、職人、芸能、食、祭礼、出版、金融など、
             さまざまな文化が交差してきたまちです。私たちは、その歴史を
             単なる過去の記録としてではなく、現代の仕事や暮らし、
             地域のつながりの中で受け継がれるものとして捉えています。
           </p>
 
-          <p>
+          <p data-i18n="about.p3">
             定期的な勉強会では、歴史、芸術、工芸、地域文化、都市、経済など、
             幅広いテーマを取り上げ、会員同士が世代や業種を越えて知見を交わします。
             日本橋に根ざす人々が互いに学び、語り合うことで、まちの文化をより深く理解し、
@@ -403,9 +441,9 @@
         <div class="activities-heading reveal">
           <div>
             <p class="section-index">02 / ACTIVITIES</p>
-            <h2>活動内容</h2>
+            <h2 data-i18n="activities.title">活動内容</h2>
           </div>
-          <p class="activities-lead">学ぶ、交わる、受け継ぐ、そして外へひらく。<br />異なる営みを往復しながら、文化を次代へつなぎます。</p>
+          <p class="activities-lead" data-i18n-html="activities.lead">学ぶ、交わる、受け継ぐ、そして外へひらく。<br />異なる営みを往復しながら、文化を次代へつなぎます。</p>
         </div>
 
         <div class="activity-grid">
@@ -414,8 +452,8 @@
               <span class="activity-number">01</span>
               <span class="activity-en">LEARN</span>
             </div>
-            <h3>勉強会</h3>
-            <p>歴史、芸術、工芸、都市、経済など、さまざまなテーマを通して、日本橋と文化への理解を深めます。</p>
+            <h3 data-i18n="activities.card1.title">勉強会</h3>
+            <p data-i18n="activities.card1.body">歴史、芸術、工芸、都市、経済など、さまざまなテーマを通して、日本橋と文化への理解を深めます。</p>
             <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
@@ -424,8 +462,8 @@
               <span class="activity-number">02</span>
               <span class="activity-en">EXCHANGE</span>
             </div>
-            <h3>交流</h3>
-            <p>世代や業種を越えた会員同士の対話を通して、まちに根ざした知見と関係性を育みます。</p>
+            <h3 data-i18n="activities.card2.title">交流</h3>
+            <p data-i18n="activities.card2.body">世代や業種を越えた会員同士の対話を通して、まちに根ざした知見と関係性を育みます。</p>
             <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
@@ -434,8 +472,8 @@
               <span class="activity-number">03</span>
               <span class="activity-en">INHERIT</span>
             </div>
-            <h3>継承</h3>
-            <p>日本橋に受け継がれてきた知恵や美意識を学び、現代の仕事や暮らしへと結び直します。</p>
+            <h3 data-i18n="activities.card3.title">継承</h3>
+            <p data-i18n="activities.card3.body">日本橋に受け継がれてきた知恵や美意識を学び、現代の仕事や暮らしへと結び直します。</p>
             <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
@@ -444,8 +482,8 @@
               <span class="activity-number">04</span>
               <span class="activity-en">SHARE</span>
             </div>
-            <h3>発信</h3>
-            <p>活動の記録やお知らせを通して、日本橋の文化的な魅力を広く共有していきます。</p>
+            <h3 data-i18n="activities.card4.title">発信</h3>
+            <p data-i18n="activities.card4.body">活動の記録やお知らせを通して、日本橋の文化的な魅力を広く共有していきます。</p>
             <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
         </div>
@@ -461,29 +499,29 @@
             <h2>NEWS</h2>
           </div>
           <a href="https://www.facebook.com/nihonbashi.culture/?locale=ja_JP" target="_blank" rel="noopener noreferrer">
-            一覧を見る <span>→</span>
+            <span data-i18n="news.viewAll">一覧を見る</span> <span>→</span>
           </a>
         </div>
 
         <div class="news-list reveal">
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
-            <span class="news-tag blue">お知らせ</span>
-            <p>日本橋文化交流会の公式サイトを公開しました。</p>
+            <span class="news-tag blue" data-i18n="news.tag.notice">お知らせ</span>
+            <p data-i18n="news.item1">日本橋文化交流会の公式サイトを公開しました。</p>
             <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
 
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
-            <span class="news-tag red">お知らせ</span>
-            <p><a href="https://attracta.co.jp/projects/nca/" target="_blank" rel="noopener noreferrer">ロゴマークおよびビジュアルアイデンティティを刷新しました。</a></p>
+            <span class="news-tag red" data-i18n="news.tag.notice">お知らせ</span>
+            <p><a href="https://attracta.co.jp/projects/nca/" target="_blank" rel="noopener noreferrer" data-i18n="news.item2">ロゴマークおよびビジュアルアイデンティティを刷新しました。</a></p>
             <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
 
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
-            <span class="news-tag blue">活動記録</span>
-            <p>今後の活動情報はFacebookページでもお知らせします。</p>
+            <span class="news-tag blue" data-i18n="news.tag.record">活動記録</span>
+            <p data-i18n="news.item3">今後の活動情報はFacebookページでもお知らせします。</p>
             <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
         </div>
@@ -496,14 +534,14 @@
       <div class="section-content contact-layout">
         <div class="reveal">
           <p class="section-index">04 / CONTACT</p>
-          <h2>文化の交点を、<br />ここから。</h2>
+          <h2 data-i18n-html="contact.title">文化の交点を、<br />ここから。</h2>
         </div>
 
         <div class="contact-copy reveal">
-          <p>日本橋文化交流会へのお問い合わせは、Facebookページよりお願いいたします。</p>
+          <p data-i18n="contact.body">日本橋文化交流会へのお問い合わせは、Facebookページよりお願いいたします。</p>
 
           <a class="button" href="https://www.facebook.com/nihonbashi.culture/?locale=ja_JP" target="_blank" rel="noopener noreferrer">
-            <span>Facebookページへ</span>
+            <span data-i18n="contact.button">Facebookページへ</span>
             <i>↗</i>
           </a>
         </div>
@@ -558,7 +596,110 @@
       revealElements.forEach((element) => element.classList.add("is-revealed"));
     }
 
-    console.info("NCX build 20260707-chapter-v9 loaded");
+    console.info("NCX build 20260707-chapter-v10 loaded");
+
+    const langToggle = document.querySelector(".lang");
+    const translations = {
+      ja: {
+        "nav.about": "活動について",
+        "nav.activities": "活動内容",
+        "nav.news": "お知らせ",
+        "nav.contact": "お問い合わせ",
+        "hero.line1": "文化を結び、",
+        "hero.line2": "未来をひらく。",
+        "hero.link": "私たちについて",
+        "about.title": '<span class="about-name">日本橋文化交流会</span><br />について',
+        "about.p1": "日本橋文化交流会は、中央区日本橋を拠点とする老舗企業を中心に、年齢や職業、経歴の異なる会員が集い、勉強会や交流を通して多様な文化を学び合う会です。",
+        "about.p2": "日本橋は、江戸以来、商い、職人、芸能、食、祭礼、出版、金融など、さまざまな文化が交差してきたまちです。私たちは、その歴史を単なる過去の記録としてではなく、現代の仕事や暮らし、地域のつながりの中で受け継がれるものとして捉えています。",
+        "about.p3": "定期的な勉強会では、歴史、芸術、工芸、地域文化、都市、経済など、幅広いテーマを取り上げ、会員同士が世代や業種を越えて知見を交わします。日本橋に根ざす人々が互いに学び、語り合うことで、まちの文化をより深く理解し、次の時代へとつなげていくことを目指しています。",
+        "activities.title": "活動内容",
+        "activities.lead": "学ぶ、交わる、受け継ぐ、そして外へひらく。<br />異なる営みを往復しながら、文化を次代へつなぎます。",
+        "activities.card1.title": "勉強会",
+        "activities.card1.body": "歴史、芸術、工芸、都市、経済など、さまざまなテーマを通して、日本橋と文化への理解を深めます。",
+        "activities.card2.title": "交流",
+        "activities.card2.body": "世代や業種を越えた会員同士の対話を通して、まちに根ざした知見と関係性を育みます。",
+        "activities.card3.title": "継承",
+        "activities.card3.body": "日本橋に受け継がれてきた知恵や美意識を学び、現代の仕事や暮らしへと結び直します。",
+        "activities.card4.title": "発信",
+        "activities.card4.body": "活動の記録やお知らせを通して、日本橋の文化的な魅力を広く共有していきます。",
+        "news.viewAll": "一覧を見る",
+        "news.tag.notice": "お知らせ",
+        "news.tag.record": "活動記録",
+        "news.item1": "日本橋文化交流会の公式サイトを公開しました。",
+        "news.item2": "ロゴマークおよびビジュアルアイデンティティを刷新しました。",
+        "news.item3": "今後の活動情報はFacebookページでもお知らせします。",
+        "contact.title": "文化の交点を、<br />ここから。",
+        "contact.body": "日本橋文化交流会へのお問い合わせは、Facebookページよりお願いいたします。",
+        "contact.button": "Facebookページへ"
+      },
+      en: {
+        "nav.about": "About",
+        "nav.activities": "Activities",
+        "nav.news": "News",
+        "nav.contact": "Contact",
+        "hero.line1": "Connecting cultures.",
+        "hero.line2": "Opening futures.",
+        "hero.link": "About us",
+        "about.title": "About the<br />Nihonbashi Culture-Exchange Association",
+        "about.p1": "The Nihonbashi Culture-Exchange Association brings together members of different ages, professions, and backgrounds, with long-established companies rooted in Nihonbashi at its core. Through study sessions and exchange, we learn from a wide range of cultures together.",
+        "about.p2": "Since the Edo period, Nihonbashi has been a place where commerce, craftsmanship, performing arts, food, festivals, publishing, finance, and many other cultures intersect. We see this history not simply as a record of the past, but as something carried forward through contemporary work, everyday life, and relationships within the community.",
+        "about.p3": "Our regular study sessions explore history, art, craft, local culture, cities, economics, and more. By exchanging knowledge across generations and industries, we aim to deepen our understanding of Nihonbashi and carry its culture into the next era.",
+        "activities.title": "Activities",
+        "activities.lead": "Learn, exchange, inherit, and open outward.<br />Moving between different practices, we connect culture to the next generation.",
+        "activities.card1.title": "Learning",
+        "activities.card1.body": "We deepen our understanding of Nihonbashi and culture through themes including history, art, craft, cities, and economics.",
+        "activities.card2.title": "Exchange",
+        "activities.card2.body": "Dialogue across generations and industries cultivates knowledge and relationships rooted in the city.",
+        "activities.card3.title": "Inheritance",
+        "activities.card3.body": "We study the knowledge and aesthetics passed down in Nihonbashi and reconnect them with contemporary work and life.",
+        "activities.card4.title": "Sharing",
+        "activities.card4.body": "Through records and announcements of our activities, we share the cultural appeal of Nihonbashi more widely.",
+        "news.viewAll": "View all",
+        "news.tag.notice": "Notice",
+        "news.tag.record": "Activity",
+        "news.item1": "The official website of the Nihonbashi Culture-Exchange Association has launched.",
+        "news.item2": "Our logo mark and visual identity have been renewed.",
+        "news.item3": "Future activity updates will also be shared on our Facebook page.",
+        "contact.title": "A point of cultural<br />intersection, from here.",
+        "contact.body": "For inquiries regarding the Nihonbashi Culture-Exchange Association, please contact us through our Facebook page.",
+        "contact.button": "Visit Facebook"
+      }
+    };
+
+    const applyLanguage = (lang) => {
+      const dict = translations[lang] || translations.ja;
+      document.documentElement.lang = lang === "en" ? "en" : "ja";
+      document.body.classList.toggle("is-en", lang === "en");
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+        const key = el.dataset.i18nHtml;
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+
+      if (langToggle) {
+        langToggle.textContent = lang === "en" ? "JA" : "EN";
+        langToggle.setAttribute("aria-label", lang === "en" ? "日本語に切り替える" : "Switch language to English");
+      }
+
+      document.title = lang === "en"
+        ? "Nihonbashi Culture-Exchange Association | Connecting cultures. Opening futures."
+        : "日本橋文化交流会｜文化を結び、未来をひらく。";
+
+      localStorage.setItem("ncx-lang", lang);
+    };
+
+    langToggle?.addEventListener("click", (event) => {
+      event.preventDefault();
+      const next = document.documentElement.lang === "en" ? "ja" : "en";
+      applyLanguage(next);
+    });
+
+    applyLanguage(localStorage.getItem("ncx-lang") === "en" ? "en" : "ja");
 
     const sweepSections = document.querySelectorAll(".section-sweep");
     const heroSection = document.querySelector(".hero");
