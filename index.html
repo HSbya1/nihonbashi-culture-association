@@ -18,21 +18,21 @@
 
 <body>
   <header class="site-header">
-<a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
-  <img src="symbol-mark.svg" alt="" class="brand-mark" />
+    <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
+      <img src="symbol-mark.svg" alt="" class="brand-mark" />
 
-  <span class="brand-text">
-    <span class="brand-name">日本橋文化交流会</span>
-    <span class="brand-sub">NIHONBASHI CULTURE-EXCHANGE ASSOCIATION</span>
-  </span>
-</a>
+      <span class="brand-text">
+        <span class="brand-name">日本橋文化交流会</span>
+        <span class="brand-sub">NIHONBASHI CULTURE-EXCHANGE ASSOCIATION</span>
+      </span>
+    </a>
 
-    <button class="menu-button" aria-label="メニュー">
+    <button class="menu-button" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
       <span></span>
       <span></span>
     </button>
 
-    <nav class="site-nav" aria-label="メインナビゲーション">
+    <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
       <a href="#about"><span>活動について</span><small>ABOUT</small></a>
       <a href="#activities"><span>活動内容</span><small>ACTIVITIES</small></a>
       <a href="#news"><span>お知らせ</span><small>NEWS</small></a>
@@ -43,12 +43,12 @@
 
   <main id="top">
     <section class="hero">
-      <div class="hero-copy">
+      <div class="hero-copy reveal">
         <p class="eyebrow">Nihonbashi Culture-Exchange Association</p>
 
         <h1>
-          文化を結び、<br />
-          未来をひらく。
+          <span>文化を結び、</span><br />
+          <span>未来をひらく。</span>
         </h1>
 
         <p class="hero-en">
@@ -61,86 +61,120 @@
       </div>
 
       <div class="hero-visual" aria-hidden="true">
+        <div class="hero-orbit hero-orbit-blue"></div>
+        <div class="hero-orbit hero-orbit-red"></div>
         <img src="symbol-mark.svg" alt="" class="hero-logo" />
-        <div class="hero-blue"></div>
-        <div class="hero-red"></div>
-        <div class="hero-paper"></div>
+
+        <span class="hero-chip chip-old">OLD ↔ NEW</span>
+        <span class="hero-chip chip-culture">CULTURE</span>
+        <span class="hero-chip chip-city">NIHONBASHI</span>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>SCROLL</span>
+        <i></i>
       </div>
     </section>
 
+    <div class="culture-ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>商い</span><i>×</i><span>工芸</span><i>×</i><span>芸術</span><i>×</i><span>食</span><i>×</i><span>都市</span><i>×</i><span>祭礼</span><i>×</i><span>出版</span><i>×</i><span>金融</span><i>×</i>
+        <span>商い</span><i>×</i><span>工芸</span><i>×</i><span>芸術</span><i>×</i><span>食</span><i>×</i><span>都市</span><i>×</i><span>祭礼</span><i>×</i><span>出版</span><i>×</i><span>金融</span><i>×</i>
+      </div>
+    </div>
+
     <section id="about" class="section about-section">
-      <div class="section-label">
+      <div class="section-label reveal">
         <span>ABOUT</span>
       </div>
 
-      <div class="section-content narrow">
-        <h2>日本橋文化交流会について</h2>
+      <div class="section-content about-layout">
+        <div class="about-title reveal">
+          <p class="section-index">01 / ABOUT</p>
+          <h2>日本橋文化交流会<br />について</h2>
+          <div class="exchange-line" aria-hidden="true">
+            <span></span>
+            <i></i>
+          </div>
+        </div>
 
-        <p>
-          日本橋文化交流会は、中央区日本橋を拠点とする老舗企業を中心に、
-          年齢や職業、経歴の異なる会員が集い、勉強会や交流を通して
-          多様な文化を学び合う会です。
-        </p>
+        <div class="about-copy reveal">
+          <p>
+            日本橋文化交流会は、中央区日本橋を拠点とする老舗企業を中心に、
+            年齢や職業、経歴の異なる会員が集い、勉強会や交流を通して
+            多様な文化を学び合う会です。
+          </p>
 
-        <p>
-          日本橋は、江戸以来、商い、職人、芸能、食、祭礼、出版、金融など、
-          さまざまな文化が交差してきたまちです。私たちは、その歴史を
-          単なる過去の記録としてではなく、現代の仕事や暮らし、
-          地域のつながりの中で受け継がれるものとして捉えています。
-        </p>
+          <p>
+            日本橋は、江戸以来、商い、職人、芸能、食、祭礼、出版、金融など、
+            さまざまな文化が交差してきたまちです。私たちは、その歴史を
+            単なる過去の記録としてではなく、現代の仕事や暮らし、
+            地域のつながりの中で受け継がれるものとして捉えています。
+          </p>
 
-        <p>
-          定期的な勉強会では、歴史、芸術、工芸、地域文化、都市、経済など、
-          幅広いテーマを取り上げ、会員同士が世代や業種を越えて知見を交わします。
-          日本橋に根ざす人々が互いに学び、語り合うことで、まちの文化をより深く理解し、
-          次の時代へとつなげていくことを目指しています。
-        </p>
+          <p>
+            定期的な勉強会では、歴史、芸術、工芸、地域文化、都市、経済など、
+            幅広いテーマを取り上げ、会員同士が世代や業種を越えて知見を交わします。
+            日本橋に根ざす人々が互いに学び、語り合うことで、まちの文化をより深く理解し、
+            次の時代へとつなげていくことを目指しています。
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="activities" class="section activities-section">
-      <div class="section-label">
+      <div class="section-label reveal">
         <span>ACTIVITIES</span>
       </div>
 
       <div class="section-content">
-        <h2>活動内容</h2>
+        <div class="activities-heading reveal">
+          <div>
+            <p class="section-index">02 / ACTIVITIES</p>
+            <h2>活動内容</h2>
+          </div>
+          <p class="activities-lead">学ぶ、交わる、受け継ぐ、そして外へひらく。<br />異なる営みを往復しながら、文化を次代へつなぎます。</p>
+        </div>
 
         <div class="activity-grid">
-          <article class="activity-card">
-            <div class="activity-icon blue">01</div>
+          <article class="activity-card card-blue reveal">
+            <div class="activity-topline">
+              <span class="activity-number">01</span>
+              <span class="activity-en">LEARN</span>
+            </div>
             <h3>勉強会</h3>
-            <p>
-              歴史、芸術、工芸、都市、経済など、さまざまなテーマを通して、
-              日本橋と文化への理解を深めます。
-            </p>
+            <p>歴史、芸術、工芸、都市、経済など、さまざまなテーマを通して、日本橋と文化への理解を深めます。</p>
+            <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
-          <article class="activity-card">
-            <div class="activity-icon red">02</div>
+          <article class="activity-card card-red reveal">
+            <div class="activity-topline">
+              <span class="activity-number">02</span>
+              <span class="activity-en">EXCHANGE</span>
+            </div>
             <h3>交流</h3>
-            <p>
-              世代や業種を越えた会員同士の対話を通して、
-              まちに根ざした知見と関係性を育みます。
-            </p>
+            <p>世代や業種を越えた会員同士の対話を通して、まちに根ざした知見と関係性を育みます。</p>
+            <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
-          <article class="activity-card">
-            <div class="activity-icon black">03</div>
+          <article class="activity-card card-paper reveal">
+            <div class="activity-topline">
+              <span class="activity-number">03</span>
+              <span class="activity-en">INHERIT</span>
+            </div>
             <h3>継承</h3>
-            <p>
-              日本橋に受け継がれてきた知恵や美意識を学び、
-              現代の仕事や暮らしへと結び直します。
-            </p>
+            <p>日本橋に受け継がれてきた知恵や美意識を学び、現代の仕事や暮らしへと結び直します。</p>
+            <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
 
-          <article class="activity-card">
-            <div class="activity-icon line">04</div>
+          <article class="activity-card card-black reveal">
+            <div class="activity-topline">
+              <span class="activity-number">04</span>
+              <span class="activity-en">SHARE</span>
+            </div>
             <h3>発信</h3>
-            <p>
-              活動の記録やお知らせを通して、
-              日本橋の文化的な魅力を広く共有していきます。
-            </p>
+            <p>活動の記録やお知らせを通して、日本橋の文化的な魅力を広く共有していきます。</p>
+            <span class="card-arrow" aria-hidden="true">↗</span>
           </article>
         </div>
       </div>
@@ -148,50 +182,62 @@
 
     <section id="news" class="news-section">
       <div class="news-inner">
-        <div class="news-heading">
-          <h2>NEWS</h2>
+        <div class="news-heading reveal">
+          <div>
+            <p class="section-index">03 / NEWS</p>
+            <h2>NEWS</h2>
+          </div>
           <a href="https://www.facebook.com/nihonbashi.culture/?locale=ja_JP" target="_blank" rel="noopener noreferrer">
             一覧を見る <span>→</span>
           </a>
         </div>
 
-        <div class="news-list">
+        <div class="news-list reveal">
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
             <span class="news-tag blue">お知らせ</span>
             <p>日本橋文化交流会の公式サイトを公開しました。</p>
+            <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
 
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
             <span class="news-tag red">お知らせ</span>
             <p>ロゴマークおよびビジュアルアイデンティティを刷新しました。</p>
+            <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
 
           <article class="news-item">
             <time datetime="2026-07-01">2026.07.01</time>
             <span class="news-tag blue">活動記録</span>
             <p>今後の活動情報はFacebookページでもお知らせします。</p>
+            <span class="news-arrow" aria-hidden="true">↗</span>
           </article>
         </div>
       </div>
     </section>
 
     <section id="contact" class="section contact-section">
-      <div class="section-label">
+      <img src="symbol-mark.svg" alt="" class="contact-symbol" aria-hidden="true" />
+
+      <div class="section-label reveal">
         <span>CONTACT</span>
       </div>
 
-      <div class="section-content narrow">
-        <h2>お問い合わせ</h2>
+      <div class="section-content contact-layout">
+        <div class="reveal">
+          <p class="section-index">04 / CONTACT</p>
+          <h2>文化の交点を、<br />ここから。</h2>
+        </div>
 
-        <p>
-          日本橋文化交流会へのお問い合わせは、Facebookページよりお願いいたします。
-        </p>
+        <div class="contact-copy reveal">
+          <p>日本橋文化交流会へのお問い合わせは、Facebookページよりお願いいたします。</p>
 
-        <a class="button" href="https://www.facebook.com/nihonbashi.culture/?locale=ja_JP" target="_blank" rel="noopener noreferrer">
-          Facebookページへ
-        </a>
+          <a class="button" href="https://www.facebook.com/nihonbashi.culture/?locale=ja_JP" target="_blank" rel="noopener noreferrer">
+            <span>Facebookページへ</span>
+            <i>↗</i>
+          </a>
+        </div>
       </div>
     </section>
   </main>
@@ -202,40 +248,98 @@
       <p class="footer-sub">NIHONBASHI CULTURE-EXCHANGE ASSOCIATION</p>
     </div>
 
-    <p class="footer-credit">
-      Visual identity designed by ATTRACTA
-    </p>
+    <p class="footer-credit">Visual identity designed by ATTRACTA</p>
   </footer>
 
   <script>
-  let lastScrollY = window.scrollY;
-  const header = document.querySelector(".site-header");
-  const threshold = 12;
+    const header = document.querySelector(".site-header");
+    const menuButton = document.querySelector(".menu-button");
+    const siteNav = document.querySelector(".site-nav");
+    const hero = document.querySelector(".hero");
+    const heroLogo = document.querySelector(".hero-logo");
+    const heroChips = document.querySelectorAll(".hero-chip");
+    const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
+    let lastScrollY = window.scrollY;
+    const threshold = 12;
 
-    if (currentScrollY < 40) {
-      header.classList.remove("is-hidden");
-      header.classList.add("is-visible");
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 40) {
+        header.classList.remove("is-hidden");
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (Math.abs(currentScrollY - lastScrollY) < threshold) return;
+
+      if (currentScrollY > lastScrollY && !document.body.classList.contains("menu-open")) {
+        header.classList.add("is-hidden");
+      } else {
+        header.classList.remove("is-hidden");
+      }
+
       lastScrollY = currentScrollY;
-      return;
-    }
+    }, { passive: true });
 
-    if (Math.abs(currentScrollY - lastScrollY) < threshold) {
-      return;
-    }
-
-    if (currentScrollY > lastScrollY) {
-      header.classList.add("is-hidden");
-      header.classList.remove("is-visible");
-    } else {
+    menuButton.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "メニューを閉じる" : "メニューを開く");
       header.classList.remove("is-hidden");
-      header.classList.add("is-visible");
+    });
+
+    siteNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "メニューを開く");
+      });
+    });
+
+    if (motionOK && hero) {
+      hero.addEventListener("pointermove", (event) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+        heroLogo.style.setProperty("--mx", `${x * 24}px`);
+        heroLogo.style.setProperty("--my", `${y * 18}px`);
+
+        heroChips.forEach((chip, index) => {
+          const depth = 8 + index * 5;
+          chip.style.setProperty("--cx", `${x * depth}px`);
+          chip.style.setProperty("--cy", `${y * depth}px`);
+        });
+      });
+
+      hero.addEventListener("pointerleave", () => {
+        heroLogo.style.setProperty("--mx", "0px");
+        heroLogo.style.setProperty("--my", "0px");
+        heroChips.forEach((chip) => {
+          chip.style.setProperty("--cx", "0px");
+          chip.style.setProperty("--cy", "0px");
+        });
+      });
     }
 
-    lastScrollY = currentScrollY;
-  });
-</script>
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if (motionOK && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add("is-revealed"));
+    }
+  </script>
 </body>
 </html>
