@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- BUILD: 20260706-chapter-v6 | snap chapters + repeatable color wipe -->
+  <!-- BUILD: 20260706-chapter-v7 | snap chapters + repeatable color wipe -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,23 +14,24 @@
   <meta property="og:type" content="website" />
 
   <link rel="icon" href="symbol-mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css?v=20260706-6" />
+  <link rel="stylesheet" href="style.css?v=20260706-7" />
 
-  <style id="chapter-snap-wipe-v6">
-    /* BUILD v6: viewport chapters + repeatable color wipe */
+  <style id="chapter-snap-wipe-v7">
+    /* BUILD v7: robust snap chapters + repeatable color reveal */
 
     html {
       scroll-snap-type: y mandatory;
-      overscroll-behavior-y: none;
+      scroll-behavior: smooth;
+      overscroll-behavior-y: contain;
     }
 
     main > section {
       min-height: 100svh;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
 
-    /* Each chapter occupies at least one viewport and centers its content. */
+    /* Each chapter occupies at least one viewport, but can grow if content needs more room. */
     .section,
     .news-section,
     .contact-section {
@@ -45,7 +46,7 @@
       position: static !important;
     }
 
-    /* ABOUT / ACTIVITIES / NEWS: white at rest, color arrives and stays. */
+    /* ABOUT / ACTIVITIES / NEWS: white at rest; color arrives and remains. */
     .section-sweep {
       position: relative !important;
       overflow: hidden !important;
@@ -79,7 +80,7 @@
       z-index: 2;
     }
 
-    /* Text turns white after the color plane has begun to cover the chapter. */
+    /* Text changes after the color plane has started covering the chapter. */
     .section-sweep .section-content,
     .section-sweep .news-inner,
     .section-sweep .section-content h2,
@@ -90,7 +91,7 @@
     .section-sweep .news-item time,
     .section-sweep .activities-lead,
     .section-sweep .section-index {
-      transition: color .35s ease .32s, border-color .35s ease .32s;
+      transition: color .35s ease .30s, border-color .35s ease .30s;
     }
 
     .section-sweep.is-chapter-active .section-content,
@@ -124,7 +125,7 @@
     .section-sweep.is-chapter-active .exchange-line span,
     .section-sweep.is-chapter-active .exchange-line i {
       background: rgba(255,255,255,.86) !important;
-      transition: background .35s ease .32s;
+      transition: background .35s ease .30s;
     }
 
     .section-sweep.is-chapter-active.about-section::before {
@@ -135,7 +136,11 @@
       display: none !important;
     }
 
-    /* Fit the activity chapter more comfortably inside one viewport on desktop. */
+    /* Keep activity cards readable on the colored chapter background. */
+    .section-sweep.is-chapter-active .activity-card {
+      border-color: rgba(255,255,255,.24) !important;
+    }
+
     @media (min-width: 981px) {
       .activities-heading {
         margin-bottom: clamp(28px, 4vh, 48px) !important;
@@ -160,11 +165,16 @@
       }
     }
 
-    /* Smaller screens may contain chapters taller than one viewport; avoid scroll trapping. */
+    /* Keep snapping active on mobile too; tall chapters are allowed to grow beyond one viewport. */
     @media (max-width: 980px) {
       html {
-        scroll-snap-type: y proximity;
-        overscroll-behavior-y: auto;
+        scroll-snap-type: y mandatory;
+        overscroll-behavior-y: contain;
+      }
+
+      main > section {
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
       }
 
       .section,
@@ -178,18 +188,18 @@
 
     @media (prefers-reduced-motion: reduce) {
       html {
-        scroll-snap-type: none;
+        scroll-snap-type: y mandatory;
       }
 
       .section-sweep .section-wipe {
-        transition: none !important;
+        transition-duration: .01ms !important;
       }
     }
   </style>
 
 </head>
 
-<body data-build="20260706-chapter-v6">
+<body data-build="20260706-chapter-v7">
   <header class="site-header">
     <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
       <img src="symbol-mark.svg" alt="" class="brand-mark" />
@@ -459,24 +469,38 @@
       revealElements.forEach((element) => element.classList.add("is-revealed"));
     }
 
-    console.info("NCX build 20260706-chapter-v6 loaded");
+    console.info("NCX build 20260706-chapter-v7 loaded");
 
     const sweepSections = document.querySelectorAll(".section-sweep");
 
-    // Replay on every chapter entry: color plane arrives and remains.
-    // When the chapter leaves the viewport, reset it off-screen for the next entry.
+    // Replay whenever a chapter crosses the center band of the viewport.
+    // This works even when a chapter is taller than the viewport.
     if (motionOK && "IntersectionObserver" in window) {
+      const activateChapter = (section) => {
+        section.classList.remove("is-chapter-active");
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            section.classList.add("is-chapter-active");
+          });
+        });
+      };
+
       const chapterObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-chapter-active");
+            sweepSections.forEach((section) => {
+              if (section !== entry.target) {
+                section.classList.remove("is-chapter-active");
+              }
+            });
+            activateChapter(entry.target);
           } else {
             entry.target.classList.remove("is-chapter-active");
           }
         });
       }, {
-        threshold: 0.52,
-        rootMargin: "0px"
+        threshold: 0,
+        rootMargin: "-42% 0px -42% 0px"
       });
 
       sweepSections.forEach((section) => chapterObserver.observe(section));
