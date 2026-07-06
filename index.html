@@ -14,6 +14,47 @@
 
   <link rel="icon" href="symbol-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css?v=20260706-4" />
+
+  <style id="section-sweep-inline-fix">
+    /* Guaranteed one-time section wipe: independent of external style.css */
+    .section-sweep {
+      position: relative !important;
+      overflow: hidden !important;
+      isolation: isolate;
+    }
+
+    .section-sweep .section-wipe {
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 30 !important;
+      display: block !important;
+      pointer-events: none !important;
+      background: #071f8f !important;
+      transform: translate3d(-101%, 0, 0);
+      will-change: transform;
+    }
+
+    .section-sweep.sweep-red .section-wipe {
+      background: #d80f1f !important;
+    }
+
+    .section-sweep.is-swept .section-wipe {
+      animation: ncxSectionSweep 1.15s cubic-bezier(.76, 0, .24, 1) both !important;
+    }
+
+    .section-sweep > :not(.section-wipe) {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes ncxSectionSweep {
+      0%   { transform: translate3d(-101%, 0, 0); }
+      46%  { transform: translate3d(0, 0, 0); }
+      54%  { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(101%, 0, 0); }
+    }
+  </style>
+
 </head>
 
 <body>
