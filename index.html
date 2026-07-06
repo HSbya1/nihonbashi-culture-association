@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- BUILD: 20260706-chapter-v7 | snap chapters + repeatable color wipe -->
+  <!-- BUILD: 20260707-chapter-v8 | hero mark exit + refined cards + red news hover -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,9 +14,9 @@
   <meta property="og:type" content="website" />
 
   <link rel="icon" href="symbol-mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css?v=20260706-7" />
+  <link rel="stylesheet" href="style.css?v=20260707-8" />
 
-  <style id="chapter-snap-wipe-v7">
+  <style id="chapter-snap-wipe-v8">
     /* BUILD v7: robust snap chapters + repeatable color reveal */
 
     html {
@@ -195,11 +195,112 @@
         transition-duration: .01ms !important;
       }
     }
+
+    /* v8 — Hero mark: visible at rest, exits right on chapter transition. */
+    .hero h1 span:last-child::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .hero-symbol-stage {
+      position: absolute;
+      z-index: 4;
+      right: clamp(54px, 9vw, 150px);
+      top: 50%;
+      width: clamp(120px, 16vw, 240px);
+      transform: translate3d(0, -50%, 0);
+      transition: transform 1.05s cubic-bezier(.76, 0, .24, 1), opacity .25s ease .80s;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    .hero-symbol-stage img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .hero.is-symbol-exiting .hero-symbol-stage {
+      transform: translate3d(calc(100vw + 120%), -50%, 0);
+      opacity: 0;
+    }
+
+    /* v8 — Keep the association name on one line. */
+    .about-name {
+      white-space: nowrap !important;
+      display: inline-block;
+    }
+
+    .about-title {
+      min-width: max-content;
+    }
+
+    .about-title h2 {
+      white-space: normal;
+    }
+
+    /* v8 — Activities: one quiet visual language, no four-color blocks. */
+    .activity-card,
+    .card-blue,
+    .card-red,
+    .card-paper,
+    .card-black {
+      background: transparent !important;
+      color: inherit !important;
+      border: 1px solid rgba(17,17,17,.18) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .activity-card:hover,
+    .activity-card:nth-child(2):hover,
+    .activity-card:nth-child(4):hover {
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: rgba(255,255,255,.08) !important;
+    }
+
+    .section-sweep.is-chapter-active .activity-card {
+      color: #fff !important;
+      border-color: rgba(255,255,255,.42) !important;
+      background: transparent !important;
+    }
+
+    .section-sweep.is-chapter-active .activity-card:hover {
+      background: rgba(255,255,255,.10) !important;
+    }
+
+    /* v8 — NEWS hover is always red, independent of row. */
+    .news-item::before,
+    .news-item:nth-child(2)::before,
+    .news-item:nth-child(3)::before {
+      background: #d80f1f !important;
+    }
+
+    @media (max-width: 980px) {
+      .hero-symbol-stage {
+        right: 22px;
+        top: 61%;
+        width: clamp(82px, 24vw, 132px);
+      }
+
+      .about-title {
+        min-width: 0;
+      }
+
+      .about-title h2 {
+        font-size: clamp(28px, 7.8vw, 38px) !important;
+      }
+
+      .about-name {
+        white-space: nowrap !important;
+      }
+    }
   </style>
 
 </head>
 
-<body data-build="20260706-chapter-v7">
+<body data-build="20260707-chapter-v8">
   <header class="site-header">
     <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
       <img src="symbol-mark.svg" alt="" class="brand-mark" />
@@ -241,6 +342,10 @@
         </p>
 
         <a href="#about" class="text-link">私たちについて <span>→</span></a>
+      </div>
+
+      <div class="hero-symbol-stage" aria-hidden="true">
+        <img src="symbol-mark.svg" alt="" />
       </div>
 
       <div class="scroll-cue" aria-hidden="true">
@@ -469,14 +574,16 @@
       revealElements.forEach((element) => element.classList.add("is-revealed"));
     }
 
-    console.info("NCX build 20260706-chapter-v7 loaded");
+    console.info("NCX build 20260707-chapter-v8 loaded");
 
     const sweepSections = document.querySelectorAll(".section-sweep");
+    const heroSection = document.querySelector(".hero");
 
     // Replay whenever a chapter crosses the center band of the viewport.
     // This works even when a chapter is taller than the viewport.
     if (motionOK && "IntersectionObserver" in window) {
       const activateChapter = (section) => {
+        heroSection?.classList.add("is-symbol-exiting");
         section.classList.remove("is-chapter-active");
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
@@ -504,6 +611,16 @@
       });
 
       sweepSections.forEach((section) => chapterObserver.observe(section));
+
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            heroSection?.classList.remove("is-symbol-exiting");
+          }
+        });
+      }, { threshold: 0.35 });
+
+      if (heroSection) heroObserver.observe(heroSection);
     } else {
       sweepSections.forEach((section) => section.classList.add("is-chapter-active"));
     }
