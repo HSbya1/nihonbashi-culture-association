@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- BUILD: 20260706-chapter-v6 | snap chapters + repeatable color wipe -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -13,24 +14,55 @@
   <meta property="og:type" content="website" />
 
   <link rel="icon" href="symbol-mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css?v=20260706-4" />
+  <link rel="stylesheet" href="style.css?v=20260706-6" />
 
-  <style id="section-sweep-inline-fix">
-    /* Guaranteed one-time section wipe: independent of external style.css */
+  <style id="chapter-snap-wipe-v6">
+    /* BUILD v6: viewport chapters + repeatable color wipe */
+
+    html {
+      scroll-snap-type: y mandatory;
+      overscroll-behavior-y: none;
+    }
+
+    main > section {
+      min-height: 100svh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* Each chapter occupies at least one viewport and centers its content. */
+    .section,
+    .news-section,
+    .contact-section {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: clamp(118px, 15vh, 168px) !important;
+      padding-bottom: clamp(54px, 9vh, 96px) !important;
+    }
+
+    .about-title {
+      position: static !important;
+    }
+
+    /* ABOUT / ACTIVITIES / NEWS: white at rest, color arrives and stays. */
     .section-sweep {
       position: relative !important;
       overflow: hidden !important;
       isolation: isolate;
+      background: #fffdf8 !important;
+      color: #1d1b18;
     }
 
     .section-sweep .section-wipe {
       position: absolute !important;
       inset: 0 !important;
-      z-index: 30 !important;
+      z-index: 1 !important;
       display: block !important;
       pointer-events: none !important;
       background: #071f8f !important;
       transform: translate3d(-101%, 0, 0);
+      transition: transform 1.05s cubic-bezier(.76, 0, .24, 1);
       will-change: transform;
     }
 
@@ -38,8 +70,8 @@
       background: #d80f1f !important;
     }
 
-    .section-sweep.is-swept .section-wipe {
-      animation: ncxSectionSweep 1.15s cubic-bezier(.76, 0, .24, 1) both !important;
+    .section-sweep.is-chapter-active .section-wipe {
+      transform: translate3d(0, 0, 0);
     }
 
     .section-sweep > :not(.section-wipe) {
@@ -47,17 +79,117 @@
       z-index: 2;
     }
 
-    @keyframes ncxSectionSweep {
-      0%   { transform: translate3d(-101%, 0, 0); }
-      46%  { transform: translate3d(0, 0, 0); }
-      54%  { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(101%, 0, 0); }
+    /* Text turns white after the color plane has begun to cover the chapter. */
+    .section-sweep .section-content,
+    .section-sweep .news-inner,
+    .section-sweep .section-content h2,
+    .section-sweep .news-heading h2,
+    .section-sweep.about-section .about-copy p,
+    .section-sweep .news-heading a,
+    .section-sweep .news-item,
+    .section-sweep .news-item time,
+    .section-sweep .activities-lead,
+    .section-sweep .section-index {
+      transition: color .35s ease .32s, border-color .35s ease .32s;
+    }
+
+    .section-sweep.is-chapter-active .section-content,
+    .section-sweep.is-chapter-active .news-inner,
+    .section-sweep.is-chapter-active .section-content h2,
+    .section-sweep.is-chapter-active .news-heading h2,
+    .section-sweep.is-chapter-active.about-section .about-copy p,
+    .section-sweep.is-chapter-active .news-heading a,
+    .section-sweep.is-chapter-active .news-item,
+    .section-sweep.is-chapter-active .news-item time,
+    .section-sweep.is-chapter-active .activities-lead,
+    .section-sweep.is-chapter-active .section-index {
+      color: #fff !important;
+    }
+
+    .section-sweep.is-chapter-active .news-item time,
+    .section-sweep.is-chapter-active .activities-lead {
+      color: rgba(255,255,255,.76) !important;
+    }
+
+    .section-sweep.is-chapter-active .news-list,
+    .section-sweep.is-chapter-active .news-item {
+      border-color: rgba(255,255,255,.32) !important;
+    }
+
+    .section-sweep.is-chapter-active .news-tag {
+      color: #fff !important;
+      border-color: rgba(255,255,255,.56) !important;
+    }
+
+    .section-sweep.is-chapter-active .exchange-line span,
+    .section-sweep.is-chapter-active .exchange-line i {
+      background: rgba(255,255,255,.86) !important;
+      transition: background .35s ease .32s;
+    }
+
+    .section-sweep.is-chapter-active.about-section::before {
+      color: rgba(255,255,255,.055) !important;
+    }
+
+    .exchange-line::after {
+      display: none !important;
+    }
+
+    /* Fit the activity chapter more comfortably inside one viewport on desktop. */
+    @media (min-width: 981px) {
+      .activities-heading {
+        margin-bottom: clamp(28px, 4vh, 48px) !important;
+      }
+
+      .activity-card {
+        min-height: clamp(205px, 25vh, 280px) !important;
+      }
+
+      .activity-card:nth-child(2),
+      .activity-card:nth-child(4) {
+        transform: translateY(clamp(12px, 2.2vh, 24px));
+      }
+
+      .activity-card:nth-child(2):hover,
+      .activity-card:nth-child(4):hover {
+        transform: translateY(clamp(4px, 1.2vh, 14px)) rotate(.7deg);
+      }
+
+      .activity-topline {
+        margin-bottom: clamp(30px, 5vh, 58px) !important;
+      }
+    }
+
+    /* Smaller screens may contain chapters taller than one viewport; avoid scroll trapping. */
+    @media (max-width: 980px) {
+      html {
+        scroll-snap-type: y proximity;
+        overscroll-behavior-y: auto;
+      }
+
+      .section,
+      .news-section,
+      .contact-section {
+        min-height: 100svh;
+        padding-top: 108px !important;
+        padding-bottom: 72px !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-snap-type: none;
+      }
+
+      .section-sweep .section-wipe {
+        transition: none !important;
+      }
     }
   </style>
 
 </head>
 
-<body>
+<body data-build="20260706-chapter-v6">
   <header class="site-header">
     <a class="brand" href="#top" aria-label="日本橋文化交流会 ホーム">
       <img src="symbol-mark.svg" alt="" class="brand-mark" />
@@ -327,16 +459,30 @@
       revealElements.forEach((element) => element.classList.add("is-revealed"));
     }
 
+    console.info("NCX build 20260706-chapter-v6 loaded");
+
     const sweepSections = document.querySelectorAll(".section-sweep");
 
-    // ABOUT / ACTIVITIES / NEWS:
-    // first hover (pointer enter) only, matching the NEWS wipe language.
-    sweepSections.forEach((section) => {
-      section.addEventListener("pointerenter", () => {
-        if (section.classList.contains("is-swept")) return;
-        section.classList.add("is-swept");
-      }, { once: true });
-    });
+    // Replay on every chapter entry: color plane arrives and remains.
+    // When the chapter leaves the viewport, reset it off-screen for the next entry.
+    if (motionOK && "IntersectionObserver" in window) {
+      const chapterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-chapter-active");
+          } else {
+            entry.target.classList.remove("is-chapter-active");
+          }
+        });
+      }, {
+        threshold: 0.52,
+        rootMargin: "0px"
+      });
+
+      sweepSections.forEach((section) => chapterObserver.observe(section));
+    } else {
+      sweepSections.forEach((section) => section.classList.add("is-chapter-active"));
+    }
   </script>
 </body>
 </html>
