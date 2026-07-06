@@ -60,38 +60,17 @@
         <a href="#about" class="text-link">私たちについて <span>→</span></a>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-orbit hero-orbit-blue"></div>
-        <div class="hero-orbit hero-orbit-red"></div>
-        <img src="symbol-mark.svg" alt="" class="hero-logo" />
-
-        <span class="hero-chip chip-old">OLD ↔ NEW</span>
-        <span class="hero-chip chip-culture">CULTURE</span>
-        <span class="hero-chip chip-city">NIHONBASHI</span>
-      </div>
-
       <div class="scroll-cue" aria-hidden="true">
         <span>SCROLL</span>
         <i></i>
       </div>
     </section>
 
-    <div class="culture-ticker" aria-hidden="true">
-      <div class="ticker-track">
-        <span>商い</span><i>×</i><span>工芸</span><i>×</i><span>芸術</span><i>×</i><span>食</span><i>×</i><span>都市</span><i>×</i><span>祭礼</span><i>×</i><span>出版</span><i>×</i><span>金融</span><i>×</i>
-        <span>商い</span><i>×</i><span>工芸</span><i>×</i><span>芸術</span><i>×</i><span>食</span><i>×</i><span>都市</span><i>×</i><span>祭礼</span><i>×</i><span>出版</span><i>×</i><span>金融</span><i>×</i>
-      </div>
-    </div>
-
-    <section id="about" class="section about-section">
-      <div class="section-label reveal">
-        <span>ABOUT</span>
-      </div>
-
+    <section id="about" class="section about-section section-sweep sweep-blue">
       <div class="section-content about-layout">
         <div class="about-title reveal">
           <p class="section-index">01 / ABOUT</p>
-          <h2>日本橋文化交流会<br />について</h2>
+          <h2><span class="about-name">日本橋文化交流会</span><br />について</h2>
           <div class="exchange-line" aria-hidden="true">
             <span></span>
             <i></i>
@@ -122,11 +101,7 @@
       </div>
     </section>
 
-    <section id="activities" class="section activities-section">
-      <div class="section-label reveal">
-        <span>ACTIVITIES</span>
-      </div>
-
+    <section id="activities" class="section activities-section section-sweep sweep-red">
       <div class="section-content">
         <div class="activities-heading reveal">
           <div>
@@ -180,7 +155,7 @@
       </div>
     </section>
 
-    <section id="news" class="news-section">
+    <section id="news" class="news-section section-sweep sweep-blue">
       <div class="news-inner">
         <div class="news-heading reveal">
           <div>
@@ -220,10 +195,6 @@
     <section id="contact" class="section contact-section">
       <img src="symbol-mark.svg" alt="" class="contact-symbol" aria-hidden="true" />
 
-      <div class="section-label reveal">
-        <span>CONTACT</span>
-      </div>
-
       <div class="section-content contact-layout">
         <div class="reveal">
           <p class="section-index">04 / CONTACT</p>
@@ -255,9 +226,6 @@
     const header = document.querySelector(".site-header");
     const menuButton = document.querySelector(".menu-button");
     const siteNav = document.querySelector(".site-nav");
-    const hero = document.querySelector(".hero");
-    const heroLogo = document.querySelector(".hero-logo");
-    const heroChips = document.querySelectorAll(".hero-chip");
     const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let lastScrollY = window.scrollY;
@@ -298,32 +266,6 @@
       });
     });
 
-    if (motionOK && hero) {
-      hero.addEventListener("pointermove", (event) => {
-        const rect = hero.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-        heroLogo.style.setProperty("--mx", `${x * 24}px`);
-        heroLogo.style.setProperty("--my", `${y * 18}px`);
-
-        heroChips.forEach((chip, index) => {
-          const depth = 8 + index * 5;
-          chip.style.setProperty("--cx", `${x * depth}px`);
-          chip.style.setProperty("--cy", `${y * depth}px`);
-        });
-      });
-
-      hero.addEventListener("pointerleave", () => {
-        heroLogo.style.setProperty("--mx", "0px");
-        heroLogo.style.setProperty("--my", "0px");
-        heroChips.forEach((chip) => {
-          chip.style.setProperty("--cx", "0px");
-          chip.style.setProperty("--cy", "0px");
-        });
-      });
-    }
-
     const revealElements = document.querySelectorAll(".reveal");
 
     if (motionOK && "IntersectionObserver" in window) {
@@ -339,6 +281,23 @@
       revealElements.forEach((element) => observer.observe(element));
     } else {
       revealElements.forEach((element) => element.classList.add("is-revealed"));
+    }
+
+    const sweepSections = document.querySelectorAll(".section-sweep");
+
+    if (motionOK && "IntersectionObserver" in window) {
+      const sweepObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-swept");
+            sweepObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18, rootMargin: "0px 0px -10% 0px" });
+
+      sweepSections.forEach((section) => sweepObserver.observe(section));
+    } else {
+      sweepSections.forEach((section) => section.classList.add("is-swept"));
     }
   </script>
 </body>
